@@ -38,16 +38,22 @@ A prospect can book a free consultation directly on top of a paying client's ses
 arguably worse than S-05, because a broken link is embarrassing while a double booking costs a
 client their appointment.
 
-### S-19 · The site promises 15 minutes; the calendar books 60 ⛔ NEW
+### S-19 · Consultation length — **CLOSED 31 Aug 2026**
 
-The homepage says *"15-minute conversation · no package decision required"* and the journal post
-says *"I offer a free 15-minute conversation."*
+The site said *"15-minute conversation"*; the GHL calendar was set to **1 hr**. Bonnie chose to
+keep the hour and change the site.
 
-The Free Consultation calendar in GHL is set to **1 hr**.
+Two places, both now read 60 minutes:
 
-So either the site is under-promising by 45 minutes, or every booking is quietly taking four times
-the intended slot out of Bonnie's week. Pick one and make the two agree — it is a one-line change
-on the site or one setting in GHL.
+- homepage hero strip — *"60-minute conversation · no package decision required"*
+- the journal post's closing offer — *"I offer a free 60-minute conversation."*
+
+The three `90-minute` references on `/services/` are the paid package sessions and were left
+alone. No GHL change was needed; the calendar was already 1 hr.
+
+**Worth revisiting once bookings start.** An hour given away per enquiry is real capacity: at
+even three enquiries a week that is most of a working day before anyone has paid. If the free
+call starts crowding out paid sessions, shortening it is one setting in GHL and two lines here.
 
 ### S-03 · Analytics — GA4 exists, the GTM container does not
 
