@@ -1,0 +1,29 @@
+<header class="relative z-40 border-b border-[#d8d0c3]/70 bg-[#fbf8f1]/90 backdrop-blur-xl">
+  <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-[#19304d] focus:px-4 focus:py-3 focus:text-sm focus:text-white">Skip to content</a>
+  <div class="container flex min-h-[82px] items-center justify-between gap-8">
+    <a href="/" class="group inline-flex items-center gap-3" aria-label="EFT solution home">
+      <img src="/assets/logo.png" alt="" width="44" height="44" class="h-11 w-11 object-contain transition-transform duration-300 group-hover:rotate-6" />
+      <span class="font-display text-[1.55rem] font-semibold leading-[0.78] tracking-[-0.02em] text-ink">EFT<span class="block text-[1.12rem] font-medium lowercase tracking-[0.05em]">solution</span></span>
+    </a>
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
+      <a href="/about/" class="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#19304d]/75 transition-colors hover:text-[#b3904c]">About</a>
+      <a href="/services/" class="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#19304d]/75 transition-colors hover:text-[#b3904c]">Services</a>
+      <a href="/clients/" class="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#19304d]/75 transition-colors hover:text-[#b3904c]">Client Stories</a>
+      <a href="/blog/" class="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#19304d]/75 transition-colors hover:text-[#b3904c]">Journal</a>
+      <a href="/consultation/" class="pressable inline-flex items-center justify-center gap-2 border border-[#c7a96b] bg-[#c7a96b] px-5 py-3 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#19304d] transition-colors hover:bg-[#d8bd87]">Book a free consult <svg class="i" width="15" height="15" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+    </nav>
+    <button type="button" id="nav-toggle" class="inline-flex h-11 w-11 items-center justify-center border border-[#19304d]/20 text-ink lg:hidden" aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open menu">
+      <svg class="i" id="nav-icon-open" width="21" height="21" aria-hidden="true"><use href="#i-menu"/></svg>
+      <svg class="i hidden" id="nav-icon-close" width="21" height="21" aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
+  </div>
+  <div id="mobile-navigation" class="hidden border-t border-[#d8d0c3]/70 bg-[#fbf8f1] lg:hidden">
+    <nav class="container flex flex-col gap-1 py-5" aria-label="Mobile navigation">
+      <a href="/about/" class="border-b border-[#d8d0c3]/60 py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink">About</a>
+      <a href="/services/" class="border-b border-[#d8d0c3]/60 py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink">Services</a>
+      <a href="/clients/" class="border-b border-[#d8d0c3]/60 py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink">Client Stories</a>
+      <a href="/blog/" class="border-b border-[#d8d0c3]/60 py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink">Journal</a>
+      <div class="pt-5"><a href="/consultation/" class="pressable inline-flex items-center justify-center gap-2 border border-[#c7a96b] bg-[#c7a96b] px-5 py-3 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#19304d] transition-colors hover:bg-[#d8bd87]">Book a free consult <svg class="i" width="15" height="15" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a></div>
+    </nav>
+  </div>
+</header>

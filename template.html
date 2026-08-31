@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#19304d" />
+    <title>{{TITLE}}</title>
+    <meta name="description" content="{{DESC}}" />
+    <meta name="robots" content="{{ROBOTS}}" />
+    <link rel="canonical" href="https://eftsolution.com{{PATH}}" />
+
+    <meta property="og:site_name" content="EFT solution" />
+    <meta property="og:type" content="{{OGTYPE}}" />
+    <meta property="og:title" content="{{TITLE}}" />
+    <meta property="og:description" content="{{DESC}}" />
+    <meta property="og:url" content="https://eftsolution.com{{PATH}}" />
+    <meta property="og:image" content="https://eftsolution.com/assets/{{OGIMAGE}}" />
+    <meta property="og:image:alt" content="{{OGIMAGEALT}}" />
+    <meta property="og:locale" content="en_IE" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{TITLE}}" />
+    <meta name="twitter:description" content="{{DESC}}" />
+    <meta name="twitter:image" content="https://eftsolution.com/assets/{{OGIMAGE}}" />
+
+    <link rel="icon" type="image/png" href="{{FAVICON}}" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <style>{{CSS}}</style>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://eftsolution.com/#organization",
+      "name": "EFT solution",
+      "url": "https://eftsolution.com/",
+      "logo": "https://eftsolution.com/assets/logo.png",
+      "email": "info@eftsolution.com",
+      "founder": {"@id": "https://eftsolution.com/#bonnie"}
+    },
+    {
+      "@type": "Person",
+      "@id": "https://eftsolution.com/#bonnie",
+      "name": "Bonnie Collins-Harmon",
+      "alternateName": "Bonnie Collins",
+      "jobTitle": "EFT and Energy Healing Practitioner",
+      "url": "https://eftsolution.com/about/",
+      "worksFor": {"@id": "https://eftsolution.com/#organization"}
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://eftsolution.com/#website",
+      "url": "https://eftsolution.com/",
+      "name": "EFT solution",
+      "publisher": {"@id": "https://eftsolution.com/#organization"},
+      "inLanguage": "en"
+    }
+  ]
+}
+    </script>
+{{HEAD_EXTRA}}
+{{CONSENT}}
+  </head>
+
+  <body>
+{{SPRITE}}
+{{HEADER}}
+{{CONTENT}}
+{{FOOTER}}
+{{SCRIPT}}
+  </body>
+</html>

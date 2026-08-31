@@ -1,0 +1,86 @@
+<div id="consent-banner" class="fixed inset-x-0 bottom-0 z-50 hidden border-t border-[#c7a96b] bg-ink text-[#fbf8f1]" role="dialog" aria-live="polite" aria-label="Cookie choices">
+  <div class="container flex flex-col gap-5 py-6 lg:flex-row lg:items-center lg:justify-between lg:py-5">
+    <p class="max-w-3xl text-sm leading-7 text-[#fbf8f1]/75">We use cookies to understand how this site is used. Nothing non-essential is loaded until you choose. Read the <a href="/terms-and-privacy/" class="underline underline-offset-4 hover:text-[#d8bd87]">privacy information</a>.</p>
+    <div class="flex flex-none gap-3">
+      <button type="button" id="consent-decline" class="pressable min-h-11 border border-[#fbf8f1]/40 px-5 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#fbf8f1] transition-colors hover:bg-[#fbf8f1]/10">Decline</button>
+      <button type="button" id="consent-accept" class="pressable min-h-11 border border-[#c7a96b] bg-[#c7a96b] px-5 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#19304d] transition-colors hover:bg-[#d8bd87]">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---- mobile navigation ------------------------------------------------ */
+  var toggle = document.getElementById("nav-toggle");
+  var panel = document.getElementById("mobile-navigation");
+  if (toggle && panel) {
+    toggle.addEventListener("click", function () {
+      var open = panel.classList.toggle("hidden") === false;
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.getElementById("nav-icon-open").classList.toggle("hidden", open);
+      document.getElementById("nav-icon-close").classList.toggle("hidden", !open);
+    });
+  }
+
+  /* ---- client story filter (/clients/) ---------------------------------- */
+  var filter = document.getElementById("story-filter");
+  if (filter) {
+    filter.addEventListener("change", function () {
+      var wanted = filter.value;
+      var cards = document.querySelectorAll("[data-story-category]");
+      for (var i = 0; i < cards.length; i++) {
+        var match = wanted === "All stories" || cards[i].getAttribute("data-story-category") === wanted;
+        cards[i].hidden = !match;
+      }
+    });
+  }
+
+  /* ---- GoHighLevel embeds ----------------------------------------------- */
+  /* One loader for the whole page, and only on pages that actually embed. */
+  if (document.querySelector("[data-ghl-embed]")) {
+    var s = document.createElement("script");
+    s.src = "https://link.eftsolution.com/js/form_embed.js";
+    s.async = true;
+    document.body.appendChild(s);
+  }
+
+  /* ---- consent ----------------------------------------------------------- */
+  /* Google Consent Mode v2 defaults to denied in the head. This grants it. */
+  var KEY = "eft-consent";
+  var banner = document.getElementById("consent-banner");
+
+  function apply(granted) {
+    if (typeof window.gtag === "function") {
+      window.gtag("consent", "update", {
+        ad_storage: granted ? "granted" : "denied",
+        ad_user_data: granted ? "granted" : "denied",
+        ad_personalization: granted ? "granted" : "denied",
+        analytics_storage: granted ? "granted" : "denied"
+      });
+    }
+  }
+
+  function decide(granted) {
+    try { localStorage.setItem(KEY, granted ? "granted" : "denied"); } catch (e) {}
+    apply(granted);
+    if (banner) banner.classList.add("hidden");
+  }
+
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+
+  if (stored === "granted") {
+    apply(true);
+  } else if (stored !== "denied" && banner) {
+    banner.classList.remove("hidden");
+  }
+
+  var accept = document.getElementById("consent-accept");
+  var decline = document.getElementById("consent-decline");
+  if (accept) accept.addEventListener("click", function () { decide(true); });
+  if (decline) decline.addEventListener("click", function () { decide(false); });
+})();
+</script>
