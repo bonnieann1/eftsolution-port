@@ -145,7 +145,7 @@ POSTS = {
 }
 
 # The site-wide card, used by every page that has no card of its own
-DEFAULT_CARD = ("share-card.png", "EFT solution — release what’s holding you back.")
+DEFAULT_CARD = ("share-card.jpg", "EFT solution — release what’s holding you back.")
 
 # Pages built but deliberately kept out of sitemap.xml
 SITEMAP_EXCLUDE = {"/404/", "/thank-you/"}
@@ -331,9 +331,9 @@ def copy_assets() -> None:
 
     required = {
         "logo.png",
-        "share-card.png",
+        "share-card.jpg",
         "hero-water-ripple.jpg",
-        "bonnie-portrait.png",
+        "bonnie-portrait.jpg",
         "botanical-still-life.jpg",
         "orbit-art.jpg",
         "paper-texture.jpg",
