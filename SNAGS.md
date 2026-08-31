@@ -6,25 +6,48 @@ defect rather than a design choice.
 
 Ordered by what would hurt most if it shipped as-is.
 
-Status as of 31 August 2026. `check_links.py` reports S-01, S-02 and S-03 by id on every run.
+Status as of 31 August 2026, revised after verifying the GHL calendar directly. `check_links.py` reports S-01, S-02 and S-03 by id on every run.
 
 ---
 
 ## Launch gates — do not go live with these open
 
-### S-05 · The booking calendar is not cleared for publication ⛔
+### S-05 · The booking calendar has no video conferencing at all ⛔ CONFIRMED
 
-Your own July 2026 handover to Cristi says, of calendar `q7V5rglueV1UgmYE8Urz`:
+**Verified in GoHighLevel on 31 August 2026.** Settings → Calendars → Connections →
+Video conferencing, for staff member Bonnie Collins, reads:
 
-> ⚠ Please hold this one in draft/staging for now — the Zoom link on this calendar is currently
-> a placeholder. I'll send the final version shortly; please don't publish this one live until then.
+> **No connections found.** Connect your video conferencing tools to generate unique meeting links.
 
-There is no record of the final version being issued. The calendar is embedded on
-`/consultation/` exactly as approved, but if that Zoom link is still a placeholder, every person
-who books a free consultation gets a broken meeting link — and they are the warmest leads on the
-site.
+Zoom is **not connected to GoHighLevel**. That is stronger than the July warning suggested. It is
+not that the Zoom link is a placeholder — it is that GHL has no way to create a Zoom link for this
+calendar at all. Anyone booking the free consultation gets a confirmation with no working meeting
+link, or with whatever static text was typed into the location field in July.
 
-**Needed:** confirm the Zoom link on that calendar is real, or supply the replacement calendar ID.
+The calendar itself (`q7V5rglueV1UgmYE8Urz`, "Free Consultation") is **Active**, last updated
+11 August 2026, and is embedded live on `/consultation/`.
+
+**Do not launch until this is connected and a test booking produces a real link.**
+
+### S-18 · Nothing stops a double booking ⛔ NEW
+
+Same screen, Connections → Calendars, also reads **"No connections found."** Bonnie's own calendar
+(Google or Outlook) is not linked to GoHighLevel, so GHL has no idea when she is busy.
+
+A prospect can book a free consultation directly on top of a paying client's session. This is
+arguably worse than S-05, because a broken link is embarrassing while a double booking costs a
+client their appointment.
+
+### S-19 · The site promises 15 minutes; the calendar books 60 ⛔ NEW
+
+The homepage says *"15-minute conversation · no package decision required"* and the journal post
+says *"I offer a free 15-minute conversation."*
+
+The Free Consultation calendar in GHL is set to **1 hr**.
+
+So either the site is under-promising by 45 minutes, or every booking is quietly taking four times
+the intended slot out of Bonnie's week. Pick one and make the two agree — it is a one-line change
+on the site or one setting in GHL.
 
 ### S-03 · Analytics container is a placeholder
 
@@ -35,13 +58,17 @@ the week you most need it.
 
 **Needed:** a GTM container for eftsolution.com. Swap the one constant in `build.py`.
 
-### S-07 · Ten images are placeholders
+### S-07 · Ten images are placeholders — **CLOSED 31 Aug 2026**
 
-Every image on the site is currently a generated grey box marked PLACEHOLDER. The real files
-exist only on Manus storage and were not in the export, not in Google Drive, and not on disk.
-Full list and the reason in the handover notes.
+Bonnie supplied the Manus asset bundle. All ten are installed, resized and re-encoded. Total
+image weight across the whole site is 1.9 MB.
 
-**Needed:** the ten image files.
+Two things changed during processing, both recorded in the commit:
+
+- The portrait moved from `.png` to `.jpg`. A 900×1125 photograph as PNG was about 1.5 MB.
+- The supplied logo arrived as a gold mark on an **opaque white canvas**, which showed as a white
+  square on the cream header and the ink footer. Near-white was keyed to transparent and the mark
+  trimmed square.
 
 ---
 
@@ -97,6 +124,18 @@ generates (`hover:text-[#19304d]`). Identical intended CSS; the difference is th
 Same fix applied to `border-ink` and `focus:bg-ink` on the skip-to-content link.
 
 To revert: swap those three back and rerun the build. `check_links.py` will then report them.
+
+### S-17 · The share card is interim
+
+`assets/share-card.jpg` — the 1200×630 picture LinkedIn and WhatsApp show when a link to the site
+is posted — was built from the hero image during the port. The type on it is set in Caladea and
+Carlito, not Cormorant Garamond and DM Sans, because the real brand fonts are not installed
+locally and could not be fetched.
+
+It is presentable and correct in colour, and it beats having no card. But since posts are
+cross-posted daily, this image does a lot of work, and it is worth remaking properly — the
+bonnieann build renders its cards from HTML through headless Chrome, which picks the real fonts
+up from Google Fonts. The same approach would work here.
 
 ### S-08 · "20+ years of practice" badge fails contrast
 
