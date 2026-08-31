@@ -49,14 +49,36 @@ So either the site is under-promising by 45 minutes, or every booking is quietly
 the intended slot out of Bonnie's week. Pick one and make the two agree — it is a one-line change
 on the site or one setting in GHL.
 
-### S-03 · Analytics container is a placeholder
+### S-03 · Analytics — GA4 exists, the GTM container does not
 
-`GTM_ID` in `build.py` is `GTM-XXXXXXX`. The consent banner and Consent Mode v2 defaults are
-wired correctly, but the container does not exist, so nothing is recorded. If the site goes live
-like this you will have no data on whether the migration cost you traffic — which is precisely
-the week you most need it.
+**Checked in Google Analytics and Tag Manager, 31 August 2026.**
 
-**Needed:** a GTM container for eftsolution.com. Swap the one constant in `build.py`.
+Good news first: a GA4 property for eftsolution.com already exists and is **already collecting
+from the live Squarespace site**.
+
+| | |
+|---|---|
+| GA4 property | `421209755` (eftsolution.com), under the "Google Ads Account" analytics account `297228733` |
+| Web data stream | `6499434174` |
+| **Measurement ID** | **`G-EL6KJYJWTB`** |
+| Status | Data collection active in the past 48 hours |
+
+Because the new site can use that same measurement ID, traffic history carries straight across
+the migration — which is exactly what makes it possible to tell whether the cutover cost
+anything.
+
+The gap is Tag Manager. The only container in the account is:
+
+| Account | Container | ID |
+|---|---|---|
+| Bonnie Ann | bonnieann.com | `GTM-5F5J75CP` |
+
+**There is no eftsolution.com container.** One needs creating under the same "Bonnie Ann"
+account, so both brands stay under one login. Then `GTM_ID` in `build.py` gets swapped, and a
+GA4 Configuration tag pointing at `G-EL6KJYJWTB` goes inside the container.
+
+Do **not** point the new site at the bonnieann container or the bonnieann GA4 property — the two
+brands serve different audiences and mixing them makes both sets of numbers useless.
 
 ### S-07 · Ten images are placeholders — **CLOSED 31 Aug 2026**
 
