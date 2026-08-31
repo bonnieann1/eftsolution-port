@@ -216,21 +216,49 @@ point — not a blocker.
 
 ## Migration
 
-### S-06 · The legacy redirect inventory is incomplete
+### S-06 · Legacy redirects — **CLOSED 31 Aug 2026, with evidence**
 
-Manus's own `site-completeness-audit.md` says its redirect work was based on a **76-row** legacy
-inventory at `/home/ubuntu/seo-migration/eftsolution-redirect-map.csv`. That file was on the
-Manus machine and is not in the export. Only **32 rules** made it into `redirects.json`.
+The 76-row inventory Manus worked from never left the Manus machine, so rather than guess at
+what was missing, the real list came out of GA4: property `421209755`, Pages and screens,
+1 Jan 2024 – 30 Aug 2026. **42 distinct paths, 805 views.**
 
-So up to 44 legacy URLs may have no redirect. Every one of those is a live Squarespace page that
-will 404 the moment DNS flips, losing whatever link equity and ranking it holds.
+Seventeen of them had no redirect. The significant gaps:
 
-Partly mitigated: this build emits both the bare and trailing-slash form of every source, which
-the Manus manifest did not — that alone would have left live 404s.
+| Path | Views | Now goes to | Why it was missed |
+|---|---|---|---|
+| `/work-with-me` + `/work-with-me/` | 27 | `/services/` | A real Squarespace page with no equivalent on the new site and no rule. The 14th most-visited URL. |
+| Twelve dated blog posts, `/blog/YYYY/M/D/slug` | 31 | `/blog/` | Squarespace dated its blog URLs. The Manus build deliberately dropped the legacy Journal posts, so the index is the honest destination. |
+| `/blog/tag/*`, `/blog/category/*` | 6 | `/blog/` | Squarespace taxonomy pages. |
+| `/privacy-policy` | 4 | `/terms-and-privacy/` | |
+| `/cart`, `/checkout` | 10 | `/services/` | Squarespace commerce, which dies with the platform. |
+| `/search`, `/commerce/orders/*` | 2 | `/` | |
 
-**Recommended:** before cutover, pull the full URL list from Squarespace (or Search Console →
-Pages → all known URLs) and diff it against `REDIRECTS` in `build.py`. Also keep Search Console
-open for the fortnight after launch and add rules for whatever 404s show up.
+The dated-post and taxonomy rules are Netlify **placeholder and splat** rules, deliberately
+**not forced** (no `!`), so a real page always wins first. That is what stops
+`/blog/:year/:month/:day/:slug` from swallowing the live journal post at
+`/blog/why-smart-people-stay-stuck-even-when-they-know-what-to-do/`.
+
+**Verify with `python3 check_legacy_urls.py`.** It asserts every one of the 42 paths resolves
+to a page or a 301 and fails the run if any would 404. Currently: **805 of 805 views covered,
+0 would 404.**
+
+Still worth doing after launch: keep Search Console → Pages open for a fortnight. Any URL with
+no traffic in the GA4 window is not in this list, and anything that shows up 404ing can be added
+to `LEGACY` in `check_legacy_urls.py` and to `REDIRECTS` in `build.py`.
+
+### S-20 · Traffic baseline before the migration — for reference, not a snag
+
+From the same GA4 pull, so there is a number to compare against after cutover:
+
+- **805 views / 279 active users** across 20 months (Jan 2024 – Aug 2026)
+- **57 views / 46 active users** in the last 28 days
+- 2 key events in the whole period, £0 / $0 revenue recorded
+- The homepage takes 31% of all views; `/clients` and `/coaching` are next
+
+That is very low traffic — roughly 40 views a month. Worth saying plainly, because it changes
+what "did the migration cost us anything" can even mean: at this volume, normal week-to-week
+noise will swamp any migration effect, and the redirects matter more for the ranking signals
+they preserve than for the visitors they carry today.
 
 ### S-15 · No `www` decision recorded
 

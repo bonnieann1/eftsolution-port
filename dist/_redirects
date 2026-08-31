@@ -42,5 +42,21 @@
 /welcome/                  /thank-you/                          301!
 /home-alt-bedford          /                                    301!
 /home-alt-bedford/         /                                    301!
+/work-with-me              /services/                           301!
+/work-with-me/             /services/                           301!
+/privacy-policy            /terms-and-privacy/                  301!
+/privacy-policy/           /terms-and-privacy/                  301!
+/cart                      /services/                           301!
+/cart/                     /services/                           301!
+/checkout                  /services/                           301!
+/checkout/                 /services/                           301!
+/search                    /                                    301!
+/search/                   /                                    301!
 
-/*                         /404.html                            404
+# wildcards - not forced, so a real page always wins first
+/blog/:year/:month/:day/:slug      /blog/                               301
+/blog/tag/*                        /blog/                               301
+/blog/category/*                   /blog/                               301
+/commerce/*                        /                                    301
+
+/*                                 /404.html                            404

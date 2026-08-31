@@ -177,7 +177,33 @@ REDIRECTS = {
     "/typ": "/thank-you/",
     "/welcome": "/thank-you/",
     "/home-alt-bedford": "/",
+    # --- added 31 Aug 2026 from GA4 evidence, not guesswork -----------------
+    # Every path below drew real traffic on the live Squarespace site between
+    # Jan 2024 and Aug 2026 and had NO redirect. See SNAGS S-06.
+    "/work-with-me": "/services/",      # 27 views across both forms
+    "/privacy-policy": "/terms-and-privacy/",
+    "/cart": "/services/",              # Squarespace commerce, dies with it
+    "/checkout": "/services/",
+    "/search": "/",
 }
+
+# ------------------------------------------------------------ wildcard 301s
+# Netlify placeholder and splat rules, emitted verbatim after the exact rules.
+# These are deliberately NOT forced (no "!"), so a real file always wins first —
+# which is what stops /blog/:year/... from swallowing the live journal post at
+# /blog/why-smart-people-stay-stuck-even-when-they-know-what-to-do/.
+#
+# Squarespace dated the blog as /blog/YYYY/M/D/slug and exposed /blog/tag/* and
+# /blog/category/* taxonomy pages. Twelve dated posts and three taxonomy pages
+# drew traffic. The posts themselves were deliberately dropped from the Journal
+# during the Manus build, so the honest destination is the Journal index rather
+# than a 404.
+WILDCARDS = [
+    ("/blog/:year/:month/:day/:slug", "/blog/", 301),
+    ("/blog/tag/*", "/blog/", 301),
+    ("/blog/category/*", "/blog/", 301),
+    ("/commerce/*", "/", 301),
+]
 
 
 def data_uri(path: pathlib.Path) -> str:
@@ -351,9 +377,15 @@ def write_redirects() -> None:
     for frm, to in REDIRECTS.items():
         lines.append(f"{frm:<26} {to:<36} 301!")
         lines.append(f"{frm + '/':<26} {to:<36} 301!")
-    lines += ["", "/*                         /404.html                            404", ""]
+    lines += ["", "# wildcards - not forced, so a real page always wins first"]
+    for frm, to, code in WILDCARDS:
+        lines.append(f"{frm:<34} {to:<36} {code}")
+    lines += ["", "/*                                 /404.html                            404", ""]
     (DIST / "_redirects").write_text("\n".join(lines), encoding="utf-8")
-    print(f"  redirects {len(REDIRECTS) * 2} rule(s) -> dist/_redirects")
+    print(
+        f"  redirects {len(REDIRECTS) * 2} exact + {len(WILDCARDS)} wildcard "
+        "rule(s) -> dist/_redirects"
+    )
 
 
 def write_headers() -> None:
