@@ -14,6 +14,28 @@ Status as of 31 August 2026, revised after verifying the GHL calendar directly. 
 
 ### S-24 · DNS facts for the cutover — read before touching Name.com
 
+Both custom domains were added in Netlify on 1 September 2026 — `eftsolution.com` as the
+**primary domain** and `www.eftsolution.com` set to redirect to it automatically, which matches
+decision 10. Both read *Pending DNS verification*, and the Let's Encrypt certificate cannot be
+issued until DNS moves. That is expected and harmless: nothing a visitor sees changes until the
+records below are edited at Name.com.
+
+**The exact records Netlify asks for** (copied from its own panel, not from memory):
+
+| Host | Type | Value |
+|---|---|---|
+| `eftsolution.com` | ALIAS / ANAME / flattened CNAME *(preferred)* | `apex-loadbalancer.netlify.com` |
+| `eftsolution.com` | A *(fallback, only if Name.com has no ALIAS/ANAME)* | `75.2.60.5` |
+| `www` | CNAME | `eftsolution.netlify.app.` |
+
+Use the ALIAS form if Name.com offers it — Netlify calls it "more resilient than the fallback".
+The four existing Squarespace A records are what the apex record replaces.
+
+Netlify also warns that with the apex as primary the site "won't benefit from the full
+advantages of a CDN" and suggests making `www` primary instead. Decision 10 stands — the apex is
+the address Bonnie wants people to see — and the ALIAS record is what mitigates it. Worth
+revisiting only if page speed proves to be a problem after launch.
+
 Live DNS as at 1 September 2026, read from the public record, not from memory:
 
 | Record | Current value | Action at cutover |
