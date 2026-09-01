@@ -12,6 +12,22 @@ Status as of 31 August 2026, revised after verifying the GHL calendar directly. 
 
 ## Launch gates — do not go live with these open
 
+### S-23 · The Netlify site is set to Private ⛔ NEW 1 Sep 2026
+
+The deployed site shows Netlify's pre-launch bar — *Private · Share · Pre-launch tools ·
+**Make public***. While it is private, only someone signed in to the Netlify team can see it;
+everyone else gets Netlify's "Team protection" login screen instead of the site. Confirmed by
+loading the site in a browser that was not signed in — it bounced to `app.netlify.com`.
+
+This does not matter while the address is the `netlify.app` preview URL, but **it must be
+switched to public before DNS is pointed at Netlify**, or eftsolution.com will show a Netlify
+login page to every visitor and to Google.
+
+Fix: Netlify → the project → **Make public** on that bar (or Project configuration → General →
+Visitor access). Do it as part of the cutover, not before you are ready for the preview URL to
+be world-readable.
+
+
 ### S-05 · Booking calendar video conferencing — **CLOSED 1 Sep 2026**
 
 Bonnie connected Zoom to GoHighLevel on 1 September 2026 and confirmed it. Worth one live
@@ -153,7 +169,11 @@ link that used to point there — `/coaching`, `/coaching/clarity`, `/coaching/a
 `/packages/` and is superseded — submit the generated `dist/sitemap.xml`, which build.py keeps
 in step with whatever is actually built.
 
-### S-22 · Five pages were unreachable — redirect loop — **FIXED 1 Sep 2026 (second attempt)**
+### S-22 · Five pages were unreachable — redirect loop — **FIXED & VERIFIED LIVE 1 Sep 2026**
+
+Verified against the deployed site, not the build: all 12 pages return 200 with no redirect,
+all 26 legacy paths land where they should, the dated-post and taxonomy wildcards resolve to
+`/blog/`, an unknown path 404s, and all 23 images return 200.
 
 **Found by Bonnie on the Netlify URL, 1 September 2026.** `/clients/` would not load. The
 browser was not showing a 404 — it was showing a connection error, because the page was
