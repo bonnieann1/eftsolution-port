@@ -187,6 +187,32 @@ def main() -> int:
     else:
         fail("dist/sitemap.xml is missing")
 
+    # ---- 9  redirect rules that would trap a visitor -----------------------
+    # A forced rule (301!) beats the real file, so a rule pointing at its own
+    # source is an infinite loop and a rule pointing at a page that exists hides
+    # that page. Both look fine in the build log; both are dead pages in a browser.
+    redirects = DIST / "_redirects"
+    if redirects.exists():
+        for raw in redirects.read_text().splitlines():
+            line = raw.strip()
+            if not line or line.startswith("#"):
+                continue
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            src, dest = parts[0], parts[1]
+            forced = len(parts) > 2 and parts[2].endswith("!")
+            if "*" in src or ":" in src.split("://")[-1]:
+                continue  # wildcard and placeholder rules are not forced
+            if src == dest:
+                fail(f"_redirects: {src} redirects to itself — infinite loop, the page "
+                     f"will never load")
+            elif forced and src in docs:
+                fail(f"_redirects: forced rule on {src} shadows the real page built at "
+                     f"that path — visitors get {dest} instead")
+    else:
+        fail("dist/_redirects is missing")
+
     # ---- report -------------------------------------------------------------
     for w in warnings:
         print(f"  warn   {w}")

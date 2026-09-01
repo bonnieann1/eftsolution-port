@@ -153,6 +153,38 @@ link that used to point there — `/coaching`, `/coaching/clarity`, `/coaching/a
 `/packages/` and is superseded — submit the generated `dist/sitemap.xml`, which build.py keeps
 in step with whatever is actually built.
 
+### S-22 · Five pages were unreachable — redirect loop — **FIXED 1 Sep 2026**
+
+**Found by Bonnie on the Netlify URL, 1 September 2026.** `/clients/` would not load. The
+browser was not showing a 404 — it was showing a connection error, because the page was
+redirecting to itself forever.
+
+`write_redirects()` emitted each rule twice, once bare and once with a trailing slash, so that
+old links worked either way. For entries that only *add* the slash, the second copy pointed at
+its own source:
+
+    /clients                   /clients/                            301!
+    /clients/                  /clients/                            301!   <- loop
+
+Because these rules are **forced** (`301!`), the loop beat the real file that Netlify had
+published at that path. Five pages were affected — `/clients/`, `/services/`, `/blog/`,
+`/refund-policy/` and `/thank-you/` — which is nearly half the site, including the services page
+every package link points at.
+
+Two fixes:
+
+1. `write_redirects()` now skips any variant whose source equals its destination. Exact rules
+   dropped from 52 to 47; the five removed were all loops.
+2. `check_links.py` gained check 9, which reads the generated `_redirects` and hard-fails on a
+   rule that points at its own source, or on a forced rule whose source is a page that was
+   actually built (which would hide the real page). Verified by reintroducing both faults —
+   both are caught.
+
+**Why nothing caught it earlier.** `check_links.py` read the built HTML in `dist/` and
+`check_legacy_urls.py` checked that every legacy path had *a* rule. Neither read the redirect
+file to ask whether the rules were sane, so a build could be green while half the site was
+unreachable. That gap is what check 9 closes.
+
 ### S-21 · build.py never removed deleted pages — **FIXED 31 Aug 2026**
 
 Found while closing S-01. `build.py` wrote pages but never deleted them, so `dist/packages/`
