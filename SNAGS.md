@@ -211,17 +211,20 @@ promises.
 If a fully separate privacy policy is ever wanted for GDPR tidiness, that is a new page — not
 required, and not done.
 
-### S-11 · Refund policy and services FAQ disagree
+### S-11 · Rescheduling contradiction — **CLOSED 31 Aug 2026**
 
-The Services FAQ says a session can be rescheduled *"up to 48 hours before a session without
-penalty."* The Refund Policy says *"at least 24 hours' notice."* One of them is wrong, and it is
-the kind of thing a client quotes back at you.
+The Services FAQ said 48 hours; the Refund Policy said 24. Bonnie's actual policy is **24 hours**,
+so the FAQ was changed to match — the Refund Policy is the document a client is more likely to
+quote back, and 24 hours is the more forgiving of the two.
 
-### S-12 · Journal date is coarse
+The FAQ answer now also points at the Refund Policy for the full terms, so the two pages agree
+and one is clearly the authority. The phrase "48 hours" no longer appears anywhere on the site.
 
-The one post is dated "July 2026" in the visible copy. The sitemap and `BlogPosting` schema need
-a real date, so `build.py` currently declares `2026-07-01`. If the actual publication date
-matters, set it in `POSTS`.
+### S-12 · Journal date — **DECIDED 31 Aug 2026, no change**
+
+Bonnie chose to keep `2026-07-01`, which is what `build.py` already declares in `POSTS` and what
+drives `datePublished` in the post's schema and `lastmod` in the sitemap. The visible line still
+reads "July 2026". Nothing to do.
 
 ### S-13 · Stripe checkout links go straight to payment
 
