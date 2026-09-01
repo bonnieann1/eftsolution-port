@@ -12,6 +12,36 @@ Status as of 31 August 2026, revised after verifying the GHL calendar directly. 
 
 ## Launch gates — do not go live with these open
 
+### S-24 · Cutover — **DONE 1 September 2026. eftsolution.com is live on Netlify.**
+
+DNS was changed at Name.com and verified against the authoritative nameservers:
+
+| Host | Type | Value |
+|---|---|---|
+| `eftsolution.com` | **ANAME** | `apex-loadbalancer.netlify.com` → flattens to `75.2.60.5`, `99.83.231.61` |
+| `www` | CNAME | `eftsolution.netlify.app.` |
+
+Name.com **does** support ANAME — its API documents the valid types as "A, AAAA, ANAME, CNAME,
+MX, NS, SRV, or TXT", and an apex record takes an empty host. The A-record fallback
+(`75.2.60.5`) was not needed.
+
+Netlify reported *DNS verification was successful* and issued the Let's Encrypt certificate.
+Verified live on the real domain: all 12 pages return 200 with no redirect and carry the GTM
+loader and noscript block; all 25 legacy paths land correctly; `https://www.eftsolution.com/`
+redirects to `https://eftsolution.com/`. Untouched and confirmed still correct: the Titan MX
+and SPF/DKIM records, and `link.eftsolution.com` → GoHighLevel.
+
+**Left in place deliberately:** the Squarespace ownership token
+`6ad96ttrxksfdlmsxjxt.eftsolution.com → verify.squarespace.com`. It has no effect on the new
+site, but it is what keeps Squarespace willing to serve the domain, which is the rollback route.
+Delete it when Squarespace is cancelled.
+
+**Rollback, while it still exists:** put the four Squarespace A records back on the apex
+(`198.185.159.144`, `198.185.159.145`, `198.49.23.144`, `198.49.23.145`) and point `www` back at
+`ext-cust.squarespace.com`. TTL is 300s, so it takes about five minutes.
+
+The original pre-cutover notes, for the record:
+
 ### S-24 · DNS facts for the cutover — read before touching Name.com
 
 Both custom domains were added in Netlify on 1 September 2026 — `eftsolution.com` as the
