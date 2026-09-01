@@ -6,7 +6,7 @@ defect rather than a design choice.
 
 Ordered by what would hurt most if it shipped as-is.
 
-Status as of 31 August 2026, revised after verifying the GHL calendar directly. `check_links.py` reports S-01, S-02 and S-03 by id on every run.
+Status as of 31 August 2026, revised after verifying the GHL calendar directly. `check_links.py` reports S-02 by id on every run (S-01 and S-03 are closed).
 
 ---
 
@@ -55,7 +55,7 @@ alone. No GHL change was needed; the calendar was already 1 hr.
 even three enquiries a week that is most of a working day before anyone has paid. If the free
 call starts crowding out paid sessions, shortening it is one setting in GHL and two lines here.
 
-### S-03 · Analytics — GA4 exists, the GTM container does not
+### S-03 · Analytics — **CLOSED 1 Sep 2026**
 
 **Checked in Google Analytics and Tag Manager, 31 August 2026.**
 
@@ -79,9 +79,34 @@ The gap is Tag Manager. The only container in the account is:
 |---|---|---|
 | Bonnie Ann | bonnieann.com | `GTM-5F5J75CP` |
 
-**There is no eftsolution.com container.** One needs creating under the same "Bonnie Ann"
-account, so both brands stay under one login. Then `GTM_ID` in `build.py` gets swapped, and a
-GA4 Configuration tag pointing at `G-EL6KJYJWTB` goes inside the container.
+**Container created and wired in, 1 September 2026.** Bonnie created a dedicated
+eftsolution.com container and supplied the snippets:
+
+| Account | Container | ID |
+|---|---|---|
+| Bonnie Ann | eftsolution.com | **`GTM-KRX6Z5DB`** |
+
+What changed in the build:
+
+- `build.py` — `GTM_ID` is now the real container, replacing the `GTM-XXXXXXX` placeholder.
+- `template.html` — the consent + loader block moved up to sit directly after the `charset`,
+  `viewport` and `theme-color` metas, so it is as high in `<head>` as it can go while keeping the
+  three required metas first.
+- `template.html` — the Tag Manager **`<noscript>` iframe** now sits immediately after the opening
+  `<body>` tag. This half was missing before; it is what records visitors running with JavaScript
+  disabled.
+
+Both live in the shared shell, so all 12 pages carry exactly one loader and one noscript block —
+verified after the build.
+
+**Consent Mode v2 still runs first.** The `gtag('consent', 'default', …)` block sits ahead of the
+loader with everything denied, so no tag fires until a visitor accepts. Bonnie's head snippet was
+pasted into the build as-is apart from that ordering; pasting it a second time verbatim would have
+loaded Tag Manager twice and stripped the consent defaults.
+
+**Still to do inside the container:** add a GA4 Configuration tag pointing at the existing
+measurement ID `G-EL6KJYJWTB`, then publish the container. Until that tag exists and is published,
+Tag Manager loads but sends nothing to Analytics.
 
 Do **not** point the new site at the bonnieann container or the bonnieann GA4 property — the two
 brands serve different audiences and mixing them makes both sets of numbers useless.

@@ -32,7 +32,7 @@ SITE = "https://eftsolution.com"
 
 # Swap this for the real container once it exists. check_links.py fails while the
 # placeholder is still here, so the site cannot go live with a dead tag.
-GTM_ID = "GTM-XXXXXXX"
+GTM_ID = "GTM-KRX6Z5DB"
 
 # ---------------------------------------------------------------- page registry
 # path -> (source fragment, <title>, meta description, noindex)
@@ -287,6 +287,7 @@ def build() -> int:
             .replace("{{FOOTER}}", footer)
             .replace("{{SCRIPT}}", script)
             .replace("{{CONSENT}}", consent)
+            .replace("{{GTM_ID}}", GTM_ID)
             .replace("{{CONTENT}}", frag.read_text(encoding="utf-8"))
             .replace("{{TITLE}}", esc(title))
             .replace("{{DESC}}", esc(desc))
