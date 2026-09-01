@@ -165,31 +165,42 @@ cross-posted daily, this image does a lot of work, and it is worth remaking prop
 bonnieann build renders its cards from HTML through headless Chrome, which picks the real fonts
 up from Google Fonts. The same approach would work here.
 
-### S-08 · "20+ years of practice" badge fails contrast
+### S-08 · Badge contrast — **CLOSED 31 Aug 2026**
 
-On the homepage the badge sets `text-sage` (#556b5a) on `bg-sage` (#dce4d8) — about 3.7:1, below
-the 4.5:1 AA threshold for text that size. The "20+" itself is ink and fine; the caption beneath
-it is the problem. Ported as-is.
+The "years of practice" caption under the homepage 20+ badge was `text-sage` (#556b5a) on
+`bg-sage` (#dce4d8). Measured properly it was **4.44:1** — under the 4.5:1 AA threshold, though
+by less than this file originally claimed (it said 3.7:1; that estimate was wrong).
 
-### S-09 · Legal pages carry their own draft warnings
+Now `text-[#19304d]/75`, which measures **5.22:1**. The "20+" itself was always fine.
 
-`/terms-and-privacy/` says in the page body: *"The production version of this page should include
-the final approved privacy and cookie policy."* `/refund-policy/` says: *"Please have this policy
-reviewed for the laws that apply to your business before publishing it as final."*
+### S-09 · Draft warnings on legal pages — **CLOSED 31 Aug 2026**
 
-Those sentences are visible to visitors. They were written as notes to you, and they read to a
-customer as "we haven't finished our policies." Also: the privacy page is now the page the
-consent banner links to, so it will get more traffic than it used to.
+Three sentences written as notes to Bonnie were sitting in customer-facing copy:
 
-### S-10 · One privacy page doing two jobs
+- *"This page is informational. Please use the final approved policy language for production."*
+  — on both `/terms-and-privacy/` and `/medical-practice-disclaimer/`
+- *"The production version of this page should include the final approved privacy and cookie
+  policy…"* — on `/terms-and-privacy/`
+- *"Please have this policy reviewed for the laws that apply to your business before publishing
+  it as final."* — on `/refund-policy/`
 
-The footer links both "Privacy policy" and "Terms of service" to the same `/terms-and-privacy/`
-URL. Fine legally, but two footer links to one destination looks like an error, and under GDPR a
-distinct privacy policy is the cleaner position.
+All replaced with real customer-facing sentences. The privacy paragraph now actually says what
+is collected and that non-essential cookies wait for consent, which is both truer and more
+useful than a note about the page being unfinished.
 
----
+**The underlying point still stands and has just moved off the website and into this file:**
+these policies have not been reviewed by a solicitor. Removing the warning did not make them
+reviewed. See S-14 — worth one legal pass covering the policies and the testimonials together.
 
-## Content and consistency
+### S-10 · Two footer links, one destination — **CLOSED 31 Aug 2026**
+
+The footer pointed both "Privacy policy" and "Terms of service" at bare `/terms-and-privacy/`.
+The page's two sections now carry `id="terms"` and `id="privacy"`, and each footer link goes to
+its own anchor. No new page, no duplicate content, and each link now lands where its label
+promises.
+
+If a fully separate privacy policy is ever wanted for GDPR tidiness, that is a new page — not
+required, and not done.
 
 ### S-11 · Refund policy and services FAQ disagree
 
