@@ -123,11 +123,7 @@ def main() -> int:
             titles.setdefault(m.group(1).strip(), []).append(url)
     for title, urls in titles.items():
         if len(urls) > 1:
-            pair = ", ".join(sorted(urls))
-            if set(urls) == {"/services/", "/packages/"}:
-                warn(f"SNAGS S-01 — duplicate <title> {title!r} on {pair} (known, ported as-is)")
-            else:
-                fail(f"duplicate <title> {title!r} on {pair}")
+            fail(f"duplicate <title> {title!r} on {', '.join(sorted(urls))}")
 
     # ---- 5  classes missing from the frozen stylesheet ----------------------
     css_path = ROOT / "shared.css"

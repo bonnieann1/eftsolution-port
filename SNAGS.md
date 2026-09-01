@@ -102,19 +102,28 @@ Two things changed during processing, both recorded in the commit:
 
 ## Inherited from the Manus build — real, and yours to decide on
 
-### S-01 · `/services/` and `/packages/` are the same page
+### S-01 · Duplicate page — **CLOSED 31 Aug 2026**
 
-Both URLs render the identical fragment with the identical `<title>`, the identical meta
-description, and each canonicalises to itself. Both are in the sitemap you're submitting.
+`/services/` is now the only real page. `/packages/` is gone and 301s to it, as do every legacy
+link that used to point there — `/coaching`, `/coaching/clarity`, `/coaching/abundance1`,
+`/coaching/vipsuccess`, `/take-action`, `/benefits` — with the `#clarity` / `#abundance` /
+`#vip` anchors preserved, so an old link still lands on the right package.
 
-That is textbook duplicate content: Google picks one, and the two pages compete rather than
-compound. The legacy `/coaching/*` redirects point at `/packages/`, which is presumably why both
-were kept.
+"Services" was chosen because it already matches the main menu.
 
-**Recommended fix:** keep `/services/` as the real page, 301 `/packages/` to `/services/`
-(preserving the `#clarity` / `#abundance` / `#vip` anchors, which already exist on the page), and
-drop `/packages/` from the sitemap. Roughly four lines in `build.py`. Not done, because it
-changes the URL set you signed off and the sitemap you're about to submit.
+**The sitemap is now 10 URLs, not 11.** The `sitemap.xml` file supplied by hand still lists
+`/packages/` and is superseded — submit the generated `dist/sitemap.xml`, which build.py keeps
+in step with whatever is actually built.
+
+### S-21 · build.py never removed deleted pages — **FIXED 31 Aug 2026**
+
+Found while closing S-01. `build.py` wrote pages but never deleted them, so `dist/packages/`
+survived being dropped from the registry and would have deployed to Netlify as a live duplicate
+of `/services/`. `check_links.py` caught it — which is the only reason it did not ship.
+
+`prune_stale()` now deletes any page in `dist/` that `PAGES` and `POSTS` no longer name, and
+reports what it removed. The duplicate-title exemption for `/services/` + `/packages/` has also
+been taken out of `check_links.py`, so any future duplicate title is a hard failure again.
 
 ### S-02 · Fifteen brand-colour classes produce no CSS at all
 

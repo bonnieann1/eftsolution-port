@@ -58,17 +58,6 @@ PAGES = {
         "comprehensive transformation.",
         False,
     ),
-    # NOTE: /packages/ renders the same fragment as /services/, carries the same title
-    # and description, and self-canonicalises — exactly as the Manus build did, and both
-    # appear in the sitemap Bonnie supplied. That is duplicate content. Logged in
-    # SNAGS.md (S-01) with the recommended fix; not changed, because this is a straight port.
-    "/packages/": (
-        "services.html",
-        "Services and packages | EFT solution",
-        "Explore EFT solution packages for focused clarity, deeper support, and "
-        "comprehensive transformation.",
-        False,
-    ),
     "/clients/": (
         "clients.html",
         "Client stories | EFT solution",
@@ -160,16 +149,16 @@ REDIRECTS = {
     "/my-story": "/about/",
     "/clients": "/clients/",
     "/services": "/services/",
-    "/packages": "/packages/",
+    "/packages": "/services/",
     "/contact": "/consultation/",
     "/articles": "/blog/",
     "/blog": "/blog/",
-    "/coaching": "/packages/",
-    "/coaching/clarity": "/packages/#clarity",
-    "/coaching/abundance1": "/packages/#abundance",
-    "/coaching/vipsuccess": "/packages/#vip",
-    "/take-action": "/packages/",
-    "/benefits": "/packages/",
+    "/coaching": "/services/",
+    "/coaching/clarity": "/services/#clarity",
+    "/coaching/abundance1": "/services/#abundance",
+    "/coaching/vipsuccess": "/services/#vip",
+    "/take-action": "/services/",
+    "/benefits": "/services/",
     "/terms": "/terms-and-privacy/",
     "/medical-disclaimer": "/medical-practice-disclaimer/",
     "/refund-policy": "/refund-policy/",
@@ -318,6 +307,7 @@ def build() -> int:
     if (DIST / "404" / "index.html").exists():
         shutil.copy2(DIST / "404" / "index.html", DIST / "404.html")
 
+    prune_stale(built)
     copy_assets()
     write_redirects()
     write_headers()
@@ -334,6 +324,29 @@ def build() -> int:
     if GTM_ID == "GTM-XXXXXXX":
         print("\n  NOTE: GTM_ID is still the placeholder. check_links.py will fail on this.")
     return 0 if not missing else 1
+
+
+def prune_stale(built) -> None:
+    """Delete pages in dist/ that PAGES and POSTS no longer name.
+
+    build.py writes files but never used to remove them, so a page dropped from
+    the registry kept shipping — dist/packages/ survived S-01 and was still being
+    deployed as a live duplicate of /services/. check_links.py caught it, which is
+    the only reason it did not reach Netlify. Now the build cleans up after itself.
+    """
+    keep = {DIST / name for _, name, _ in built} | {DIST / "404.html"}
+    removed = []
+    for f in sorted(DIST.rglob("index.html")):
+        if f not in keep:
+            f.unlink()
+            removed.append(f.relative_to(DIST).as_posix())
+            # drop the directory too, if the page was the only thing in it
+            try:
+                f.parent.rmdir()
+            except OSError:
+                pass
+    for name in removed:
+        print(f"  pruned  dist/{name}  (no longer in PAGES or POSTS)")
 
 
 def copy_assets() -> None:
@@ -418,7 +431,7 @@ def write_headers() -> None:
 
 
 def write_sitemap() -> None:
-    prio = {"/": "1.0", "/services/": "0.9", "/packages/": "0.9", "/blog/": "0.8"}
+    prio = {"/": "1.0", "/services/": "0.9", "/blog/": "0.8"}
     freq = {"/": "weekly", "/blog/": "weekly", "/services/": "monthly"}
     legal_paths = {"/terms-and-privacy/", "/medical-practice-disclaimer/", "/refund-policy/"}
 
