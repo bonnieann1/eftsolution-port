@@ -12,7 +12,42 @@ Status as of 31 August 2026, revised after verifying the GHL calendar directly. 
 
 ## Launch gates — do not go live with these open
 
-### S-23 · The Netlify site is set to Private ⛔ NEW 1 Sep 2026
+### S-24 · DNS facts for the cutover — read before touching Name.com
+
+Live DNS as at 1 September 2026, read from the public record, not from memory:
+
+| Record | Current value | Action at cutover |
+|---|---|---|
+| Nameservers | `ns1bcp` / `ns2dfg` / `ns3bgq` / `ns4jnz` `.name.com` | leave — **Name.com is where DNS is edited** |
+| `eftsolution.com` A | `198.185.159.144`, `.145`, `198.49.23.144`, `.145` (Squarespace) | replace with the record Netlify gives |
+| `www` CNAME | `ext-cust.squarespace.com` | repoint to `eftsolution.netlify.app` |
+| `link.eftsolution.com` CNAME | `brand.ludicrous.cloud` (GoHighLevel) | **do not touch** — serves the booking calendar and all four form embeds |
+| MX | `mx1.titan.email`, `mx2.titan.email` | **do not touch** — this is her email |
+| TXT | Titan SPF and DKIM | **do not touch** |
+
+Email is independent of the website. Changing only the apex A records and the `www` CNAME
+cannot affect it.
+
+**GoHighLevel needs no change at all.** GHL lists eftsolution.com under *External Domains* with
+DNS managed by Name.com, and the only connected products are on subdomains — `link.` (Branded
+Domain) and `mail.` (Email). The apex serves nothing from GHL.
+
+**Ignore GHL's "Expiring soon at Name.com — Transfer Now" banner.** That is GHL marketing.
+Transferring the domain in would hand DNS control to GoHighLevel in the middle of a migration,
+for no benefit.
+
+**Do not cancel Squarespace** until the new site has served correctly on the real domain for
+several days. Rolling back means putting the old A records back, which is only possible while
+the Squarespace site still exists.
+
+
+### S-23 · Netlify site visibility — **CLOSED 1 Sep 2026**
+
+Bonnie made the site public. Verified from a browser not signed in to the Netlify account:
+`/services/` loads the real page rather than the Team protection screen.
+
+The original finding, for the record:
+
 
 The deployed site shows Netlify's pre-launch bar — *Private · Share · Pre-launch tools ·
 **Make public***. While it is private, only someone signed in to the Netlify team can see it;
