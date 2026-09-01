@@ -153,7 +153,7 @@ link that used to point there — `/coaching`, `/coaching/clarity`, `/coaching/a
 `/packages/` and is superseded — submit the generated `dist/sitemap.xml`, which build.py keeps
 in step with whatever is actually built.
 
-### S-22 · Five pages were unreachable — redirect loop — **FIXED 1 Sep 2026**
+### S-22 · Five pages were unreachable — redirect loop — **FIXED 1 Sep 2026 (second attempt)**
 
 **Found by Bonnie on the Netlify URL, 1 September 2026.** `/clients/` would not load. The
 browser was not showing a 404 — it was showing a connection error, because the page was
@@ -179,6 +179,23 @@ Two fixes:
    rule that points at its own source, or on a forced rule whose source is a page that was
    actually built (which would hide the real page). Verified by reintroducing both faults —
    both are caught.
+
+**The first fix was wrong, and the live site proved it.** Removing only the generated
+trailing-slash line left `/services  ->  /services/  301!` in place, the build went green, it
+deployed — and all five pages stayed dead. The reason is a Netlify behaviour I had not accounted
+for: **Netlify ignores trailing slashes when matching redirect rules.** `/services` and
+`/services/` are one path to the matching engine, so that single remaining rule still matched
+its own destination and still looped. Deleting the second line changed nothing at all.
+
+The real fix is to drop the whole entry. A rule that only adds a trailing slash does nothing
+useful — Netlify already serves a directory index at either spelling — and it is actively
+dangerous when forced. `write_redirects()` now skips any entry whose source and destination are
+equal once the slash is normalised, which removed all five. Exact rules: 52 → 47 (first attempt)
+→ **42**. Legacy coverage is unaffected at 805/805, because those paths resolve natively.
+
+`check_links.py` check 9 was rewritten to compare both sides **normalised**. In its first form it
+compared the strings literally, so it would have passed `/services -> /services/` — the exact bug
+it was written to catch. Re-verified against that rule specifically.
 
 **Why nothing caught it earlier.** `check_links.py` read the built HTML in `dist/` and
 `check_legacy_urls.py` checked that every legacy path had *a* rule. Neither read the redirect

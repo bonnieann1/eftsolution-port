@@ -4,15 +4,12 @@
 /home/                     /                                    301!
 /my-story                  /about/                              301!
 /my-story/                 /about/                              301!
-/clients                   /clients/                            301!
-/services                  /services/                           301!
 /packages                  /services/                           301!
 /packages/                 /services/                           301!
 /contact                   /consultation/                       301!
 /contact/                  /consultation/                       301!
 /articles                  /blog/                               301!
 /articles/                 /blog/                               301!
-/blog                      /blog/                               301!
 /coaching                  /services/                           301!
 /coaching/                 /services/                           301!
 /coaching/clarity          /services/#clarity                   301!
@@ -29,8 +26,6 @@
 /terms/                    /terms-and-privacy/                  301!
 /medical-disclaimer        /medical-practice-disclaimer/        301!
 /medical-disclaimer/       /medical-practice-disclaimer/        301!
-/refund-policy             /refund-policy/                      301!
-/thank-you                 /thank-you/                          301!
 /typ                       /thank-you/                          301!
 /typ/                      /thank-you/                          301!
 /welcome                   /thank-you/                          301!
