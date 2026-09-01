@@ -192,6 +192,11 @@ WILDCARDS = [
     ("/blog/tag/*", "/blog/", 301),
     ("/blog/category/*", "/blog/", 301),
     ("/commerce/*", "/", 301),
+    # Domain canonicalisation (S-15). eftsolution.com with no www is the real
+    # address — every canonical tag and the sitemap already say so. Netlify's
+    # primary-domain setting normally handles this; the rule is here as well so
+    # the redirect survives a drag-and-drop deploy or a missed domain setting.
+    ("https://www.eftsolution.com/*", "https://eftsolution.com/:splat", "301!"),
 ]
 
 

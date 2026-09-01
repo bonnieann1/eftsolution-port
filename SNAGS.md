@@ -289,10 +289,22 @@ what "did the migration cost us anything" can even mean: at this volume, normal 
 noise will swamp any migration effect, and the redirects matter more for the ranking signals
 they preserve than for the visitors they carry today.
 
-### S-15 · No `www` decision recorded
+### S-15 · www — **DECIDED 31 Aug 2026**
 
-Nothing in the port states whether `www.eftsolution.com` should serve or redirect to the apex.
-Netlify needs one told to it explicitly. Pick one, redirect the other, permanently.
+**`eftsolution.com` with no www is the real address.** `www.eftsolution.com` permanently
+redirects to it.
+
+This is what the site was already built for — every `<link rel="canonical">`, the JSON-LD, the
+sitemap and the share-card URLs all say `https://eftsolution.com`. Nothing had to change.
+
+Two things now enforce it:
+
+1. A rule in `dist/_redirects`:
+   `https://www.eftsolution.com/*  →  https://eftsolution.com/:splat  301!`
+2. **Set the primary domain in Netlify** — Site configuration → Domain management → set
+   `eftsolution.com` as primary, add `www.eftsolution.com` as an alias. Netlify then does this
+   at the edge, which is faster than the rule. The rule is belt-and-braces for a drag-and-drop
+   deploy or a missed setting.
 
 ### S-16 · GHL iframes load before consent
 

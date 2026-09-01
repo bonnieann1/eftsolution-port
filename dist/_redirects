@@ -58,5 +58,6 @@
 /blog/tag/*                        /blog/                               301
 /blog/category/*                   /blog/                               301
 /commerce/*                        /                                    301
+https://www.eftsolution.com/*      https://eftsolution.com/:splat       301!
 
 /*                                 /404.html                            404
