@@ -12,6 +12,35 @@ Status as of 31 August 2026, revised after verifying the GHL calendar directly. 
 
 ## Launch gates — do not go live with these open
 
+### S-25 · GTM's "Test your website" fails — expected, not a fault
+
+Tag Manager's install dialog reports *"Something went wrong. Please try again."* when testing
+`https://eftsolution.com`. The tag is fine. Verified in a browser on the live site:
+`window.google_tag_manager` contains **`GTM-KRX6Z5DB`**, `gtm.js` returns 200 at ~330 KB, and
+`dataLayer` is populated.
+
+The tester fails because the site sends **`X-Frame-Options: SAMEORIGIN`** (set in `_headers` and
+`netlify.toml`), which stops Google embedding the page in its checker. That header is real
+clickjacking protection and should **not** be removed to satisfy a diagnostic tool.
+
+Verify the tag a different way: GA4 Realtime after the GA4 tag is published — that tests the
+whole chain and needs no framing.
+
+**Separate and real: the container is empty.** `gtm.js` contains no `G-` measurement ID at all,
+so Tag Manager currently loads and does nothing. A GA4 Configuration tag pointing at
+`G-EL6KJYJWTB` still has to be added and the container published.
+
+### S-26 · Do not submit the hand-written sitemap file
+
+The `sitemap 1.xml` that came with the Manus build lists **11 URLs including `/packages/`**,
+which no longer exists and 301s to `/services/`. Submitting it would report a redirecting URL to
+Google.
+
+The generated sitemap at **`https://eftsolution.com/sitemap.xml`** is the one to submit — 10
+URLs, every one verified live returning 200 with no redirect. In Search Console enter the path
+`sitemap.xml`; Google fetches the current file itself, so it stays right as the site changes.
+
+
 ### S-24 · Cutover — **DONE 1 September 2026. eftsolution.com is live on Netlify.**
 
 DNS was changed at Name.com and verified against the authoritative nameservers:
