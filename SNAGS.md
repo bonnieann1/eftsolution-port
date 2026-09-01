@@ -12,7 +12,14 @@ Status as of 31 August 2026, revised after verifying the GHL calendar directly. 
 
 ## Launch gates — do not go live with these open
 
-### S-05 · The booking calendar has no video conferencing at all ⛔ CONFIRMED
+### S-05 · Booking calendar video conferencing — **CLOSED 1 Sep 2026**
+
+Bonnie connected Zoom to GoHighLevel on 1 September 2026 and confirmed it. Worth one live
+test booking before the DNS flip: book the free consultation through the site and check the
+confirmation email actually carries a Zoom link.
+
+The original finding, for the record:
+
 
 **Verified in GoHighLevel on 31 August 2026.** Settings → Calendars → Connections →
 Video conferencing, for staff member Bonnie Collins, reads:
@@ -29,7 +36,13 @@ The calendar itself (`q7V5rglueV1UgmYE8Urz`, "Free Consultation") is **Active**,
 
 **Do not launch until this is connected and a test booking produces a real link.**
 
-### S-18 · Nothing stops a double booking ⛔ NEW
+### S-18 · Double bookings — **CLOSED 1 Sep 2026**
+
+Bonnie connected her own calendar to GoHighLevel on 1 September 2026 and confirmed it, so
+existing commitments now block slots. Same live test as S-05 covers this.
+
+The original finding, for the record:
+
 
 Same screen, Connections → Calendars, also reads **"No connections found."** Bonnie's own calendar
 (Google or Outlook) is not linked to GoHighLevel, so GHL has no idea when she is busy.
