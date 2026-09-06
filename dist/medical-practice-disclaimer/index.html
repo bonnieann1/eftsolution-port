@@ -288,13 +288,18 @@
   }
 
   /* ---- GoHighLevel embeds ----------------------------------------------- */
-  /* One loader for the whole page, and only on pages that actually embed. */
-  if (document.querySelector("[data-ghl-embed]")) {
-    var s = document.createElement("script");
-    s.src = "https://link.eftsolution.com/js/form_embed.js";
-    s.async = true;
-    document.body.appendChild(s);
-  }
+  /* GHL's form_embed.js is deliberately NOT loaded — see SNAGS S-27.
+     Its only jobs are auto-height and revealing the iframe, and it does the
+     second by setting visibility:hidden on load and clearing it when the
+     widget posts back its height. That message never arrived, so every embed
+     on the site sat invisible: both lead magnets AND the booking calendar.
+     The widgets render perfectly on their own, so the iframes are now plain,
+     fixed-height and always visible, with no third-party script deciding
+     whether a revenue-critical form appears. Heights are set per embed below
+     the form's own content height, with scrolling enabled as the safety net.
+
+     If the script is ever reinstated, it MUST be paired with a fallback that
+     forces visibility after a timeout. */
 
   /* ---- consent ----------------------------------------------------------- */
   /* Google Consent Mode v2 defaults to denied in the head. This grants it. */

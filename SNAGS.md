@@ -12,6 +12,43 @@ Status as of 31 August 2026, revised after verifying the GHL calendar directly. 
 
 ## Launch gates — do not go live with these open
 
+### S-27 · Every GoHighLevel embed was invisible ⛔ **FIXED 6 Sep 2026**
+
+**Found by Bonnie, 6 September 2026.** Both homepage lead magnets showed an empty box with
+only the "If the form does not appear, open it in a new window" fallback. Checking the live
+site showed it was not two forms — it was **all four embeds, on both pages**, including the
+**booking calendar on `/consultation/`**. Every route into the practice had been invisible
+since launch on 1 September. Five days.
+
+**Diagnosis, from the live DOM rather than the markup.** Each iframe carried an *inline*
+`visibility: hidden`, and each had been wrapped in `div.ep-wrapper` / `div.ep-iFrameContainer`
+— GoHighLevel's own markup. So the site's HTML was correct and something else was hiding them:
+`form_embed.js`, GHL's embed loader. It hides every iframe it finds on init and clears the
+style only when the widget posts its height back to the parent. That message never arrived, so
+the embeds stayed hidden forever, at their full reserved height — which is exactly why the
+boxes looked correctly sized and completely empty.
+
+The widgets themselves were never broken. Opening
+`link.eftsolution.com/widget/form/bcAt7LBMmWIzCLk1qeuD` directly renders the form properly —
+First Name, Email, Submit — which is what made this hard to see from the outside.
+
+**Fix.** The loader is no longer loaded. Its only jobs were auto-height and revealing the
+iframe, and it was doing the second badly. The iframes are now plain, fixed-height and always
+visible, with `scrolling="auto"` so a taller-than-expected form is never clipped. `loading="lazy"`
+was also removed: a booking or lead form must not depend on a viewport heuristic, and a hidden
+lazy iframe is precisely the state this failed in. No third-party script now decides whether
+Bonnie's lead capture appears.
+
+**Guard.** `check_links.py` check 10 fails the build if any page appends `form_embed.js` or
+lazy-loads a GHL embed. Verified by reintroducing the lazy attribute — it is caught.
+
+**If the loader is ever reinstated** it must be paired with a timeout that forces visibility.
+
+**Still open, separate from the bug:** Bonnie has asked that the meditation embed deliver the
+*Collapse Your Money Fears* meditation. That is a GoHighLevel workflow question — what the form
+sends after submission — not a website change.
+
+
 ### S-25 · GTM's "Test your website" fails — expected, not a fault
 
 Tag Manager's install dialog reports *"Something went wrong. Please try again."* when testing

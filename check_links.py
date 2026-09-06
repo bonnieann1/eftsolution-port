@@ -220,6 +220,24 @@ def main() -> int:
     else:
         fail("dist/_redirects is missing")
 
+    # ---- 10  the GoHighLevel embeds must be visible ------------------------
+    # S-27: every GHL embed on the site sat invisible for five days. Their
+    # form_embed.js sets visibility:hidden on each iframe and only clears it
+    # after a postMessage handshake; when that never landed, both lead magnets
+    # and the booking calendar rendered as empty boxes. Nothing in the build
+    # caught it, because the markup was correct. These two rules encode what
+    # went wrong so it cannot come back quietly.
+    for url, html in docs.items():
+        if "appendChild" in html and "form_embed.js" in html.split("<!--")[0]:
+            fail(f"{url} appends GoHighLevel's form_embed.js — it hides every "
+                 f"embed until a handshake that has failed before (SNAGS S-27)")
+        for tag in re.findall(r"<iframe[^>]*data-ghl-embed[^>]*>", html):
+            if 'loading="lazy"' in tag:
+                name = re.search(r'data-form-name="([^"]*)"', tag)
+                fail(f"{url} lazy-loads the GHL embed "
+                     f"{name.group(1) if name else '(unnamed)'} — a booking or "
+                     f"lead form must not depend on a viewport heuristic")
+
     # ---- report -------------------------------------------------------------
     for w in warnings:
         print(f"  warn   {w}")

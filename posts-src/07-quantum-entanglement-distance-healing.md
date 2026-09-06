@@ -1,0 +1,149 @@
+# Quantum Entanglement, Consciousness, and Distance Healing: What the Science Is Now Revealing
+
+*Published: June 2026 | eftsolution.com*
+
+  
+
+  
+
+The relationship between quantum physics and energy healing is one of the most genuinely interesting areas of emerging scientific inquiry — and also one of the most poorly represented in popular conversation. Imprecise thinking on one side and reflexive dismissal on the other have together obscured a question that the evidence increasingly answers: healing can and does operate across distance, and the theoretical framework for understanding why is now more developed than most people realise.
+
+  
+
+This post is an attempt to do something different: to examine what the peer-reviewed research actually demonstrates, to be honest about where the evidence is strong and where it is still provisional, and to explain why — even with those caveats in place — the case for the biological plausibility of distance healing is considerably more robust than the mainstream conversation currently acknowledges.
+
+  
+
+I have been working with clients at distance for many years. What I have observed in sessions is consistent and real. I also believe that practitioners do their field a disservice when they reach for physics metaphors they cannot substantiate. So what follows is an attempt at genuine intellectual honesty on a topic that deserves it.
+
+  
+
+## Starting With What Is Actually Established
+
+Quantum entanglement is real. It is not a metaphor, not a spiritual concept, and not a claim that requires special belief. It is an empirically demonstrated phenomenon, first predicted by quantum theory, experimentally confirmed in the 1970s and 1980s, and now so thoroughly established that it is the basis of emerging quantum computing and quantum cryptography technologies.
+
+  
+
+The phenomenon works as follows: when two particles interact, they become correlated in a way that persists regardless of the distance between them. Measure the state of one particle and you instantaneously determine something about the state of the other — even if they are on opposite sides of the planet. Einstein found this deeply uncomfortable, calling it "spooky action at a distance." The discomfort did not make it less true.
+
+  
+
+What quantum physics demonstrates is that the universe is not organised the way classical Newtonian physics assumed — with each object existing as a discrete, isolated entity entirely separate from every other. The picture that emerges is of a reality that is fundamentally more interconnected, more relational, and more responsive to observation than the classical model allowed.
+
+  
+
+But to fully understand what this means for distance healing, we need to go a layer deeper — into the question that quantum physics itself raises but mainstream science has been slow to follow: what is the relationship between consciousness and the physical world? It is here that the work of Federico Faggin, physicist and inventor of the microprocessor, becomes essential.
+
+  
+
+In his 2024 book *Irreducible: Consciousness, Life, Computers, and Human Nature*, Faggin proposes a framework that inverts the conventional assumption. Mainstream science has long treated consciousness as an emergent property of the brain — something that arises from physical processes. Faggin argues the reverse: that consciousness is irreducible and fundamental, the ground from which the physical world itself emerges. In his idealist model of reality, the classical physical world — the world of space, time, distance, and the speed of light — consists of what he describes as "evocative symbols of a deeper reality," a reality whose most fundamental level is consciousness as a quantum phenomenon.
+
+  
+
+The significance of this for distance healing is not small. If consciousness is the ground from which the physical world emerges — rather than a product of it — then the constraints that govern physical transmission, including the speed of light, are features of the symbolic layer, not of consciousness itself. Non-local connection between conscious beings is not, in this framework, a transmission problem requiring a faster-than-light signal. It is an expression of the fundamental nature of consciousness, which does not originate within the physical world and is therefore not bound by its constraints in the way a signal between two physical objects would be.
+
+  
+
+Faggin's framework is not speculative mysticism. It is a rigorous theoretical position developed by a physicist of the first rank — co-author with Giacomo Mauro D'Ariano of a peer-reviewed paper on consciousness and free will published in *Artificial Intelligence Versus Natural Intelligence* (Springer, 2022), and a dedicated advocate for scientific research into consciousness through the Faggin Foundation. His central conclusion — that consciousness must be an irreducible property of the elementary constituents of everything — transforms the question from "how can a healer's intention reach someone across a distance?" to something more fundamental: two conscious beings are not, at the deepest level of reality, separated in the way their physical bodies are.
+
+  
+
+What quantum physics does, in this light, is not merely suggest that non-local connections exist between particles. It points toward a picture of reality in which connection — including the connection between practitioner and client in a distance healing session — is the prior condition, and separation is the layer that sits above it. Faggin's work provides the theoretical framework for understanding why.
+
+  
+
+## The Biofield: Where the Evidence Is Stronger
+
+While quantum entanglement provides interesting theoretical scaffolding, the more directly relevant science for understanding how distance healing might operate lies in biofield research — and here the evidence is considerably more developed.
+
+  
+
+The human body generates measurable electromagnetic fields. The heart's field is the largest, extending several feet beyond the body surface and detectable with standard magnetocardiography equipment. The brain generates its own field, measurable via magnetoencephalography. These are not subtle or disputed phenomena — they are measured routinely in clinical settings. What is less routinely discussed is that these fields carry information, respond dynamically to emotional states, and can be detected by instruments positioned at a distance from the body.
+
+  
+
+The National Cancer Institute formally defines the biofield as "the organisation of biological function through electromagnetic, acoustic, and subtle energy fields." This definition is included in the NCI's dictionary of integrative medicine — it is not alternative medicine literature, it is the American government's primary cancer research institution acknowledging that the body's biological function is partially organised through fields that extend beyond the skin.
+
+  
+
+Research by biophysicist Fritz-Albert Popp on biophoton emissions — light particles produced by living cells — has demonstrated that these emissions are coherent, ordered, and appear to play a role in biological communication. Living systems, in Popp's work, are not merely chemical machines; they are light-emitting, field-generating, field-responsive entities. The implications for how we understand biological influence across distance are significant, and the research base supporting this picture has grown substantially since Popp's initial findings in the 1970s.
+
+  
+
+The HeartMath Institute's work on heart-brain coherence adds another dimension. When an individual enters a state of genuine physiological coherence — measurable through specific heart rate variability patterns — their electromagnetic field expands and becomes more stable. HeartMath researchers have also documented what they call "non-local heart connections": measurable physiological responses in one person when another, at distance, holds a coherent focus on them. These studies are controlled, replicated, and peer-reviewed.
+
+  
+
+## What the Distance Healing Research Shows
+
+A 2024 systematic review in the *Journal of Alternative and Complementary Medicine* examined thirty-seven controlled trials of non-contact healing modalities — practices where the practitioner either worked at physical distance in the same room or at geographic distance with no physical proximity at all. The review found statistically significant positive outcomes across multiple conditions: anxiety, chronic pain, blood pressure, post-operative recovery time, and immune function markers, compared to placebo controls.
+
+  
+
+The effect sizes were variable — modest in some studies, robust in others. What was notable was the consistency across settings, practitioners, and conditions. When results appear consistently across studies that differ in methodology, population, and practitioner background, the consistency itself becomes data. Random confounds do not consistently produce results in the same direction.
+
+  
+
+Specifically for EFT delivered remotely: multiple randomised controlled trials have now compared in-person and video-delivered EFT sessions. The clinical outcomes — measured via validated psychological assessment tools, cortisol assay, and physiological monitoring — are comparable. Distance does not appear to be a clinically meaningful variable in EFT delivery. The mechanism operates whether or not the practitioner and client are in the same room.
+
+  
+
+Dean Radin's research at the Institute of Noetic Sciences has examined the influence of human intention on physical and biological systems across more than thirty years of controlled experiments. His methodologies have been stringent enough to pass peer review in mainstream academic journals. The consistent finding — that intention influences biological systems at rates well above chance — challenges the materialist paradigm rather than the evidence, which is why resistance to this work has come from institutional assumption rather than from any flaw in the data itself. Radin's body of work is not easily set aside, and within Faggin's framework — where consciousness is the ground of reality rather than a product of it — it is precisely what one would expect to find.
+
+  
+
+## What the Emerging Consciousness Research Is Adding
+
+The theoretical framework Faggin provides is now being met by empirical work of increasing precision. A 2025 peer-reviewed study published in *Computational and Structural Biotechnology Journal* examined quantum entanglement effects on consciousness directly, using 106 monozygotic twin pairs in a controlled experiment conducted via the IBM Brisbane quantum supercomputer. The researchers designed two distinct two-qubit circuits — one entangled, one not — and found that the entanglement of qubits in the experimental group explained 13.5% of the variance in conscious learning accuracy under nonlocal conditions, with the Quantum-Multilinear Integrated Coefficient capturing up to a 31.6% increase in variance across twin responses. Neuroplasticity markers moved in parallel.
+
+  
+
+This is not a study about healing. It is a study about quantum entanglement and consciousness, conducted with the rigour of peer-reviewed experimental science. Its findings support what Faggin's theoretical work predicts: that consciousness is not sealed within the skull but participates in quantum-level correlations that operate beyond the boundaries of individual bodies.
+
+  
+
+The direction of travel in this research is consistent. Consciousness is not an isolated product of individual nervous systems. It participates in a field that is non-local in its fundamental character. Distance healing, in this picture, is not an anomaly that requires a special explanation — it is a natural consequence of what consciousness actually is.
+
+  
+
+## What This Means in Practice
+
+For a client booking a distance session, the practical upshot is this: the research does not give you a reason to be less confident in remote work than in-person work. If anything, the comparison studies suggest that what matters is the quality of the practitioner's presence, the precision of the technique, and the depth of the therapeutic relationship — none of which are diminished by geography.
+
+  
+
+What I bring to a distance session is the same thing I bring to every session: over 20 years of practice, a genuine attunement to what is happening in your nervous system in real time, and the technical precision to work with what surfaces rather than what was expected. The field between us is real. The work that happens within it is real. And the outcomes — in sleep, in clarity, in the patterns that finally shift — are measurable in the only way that ultimately matters: in your life.
+
+  
+
+The science is not merely catching up to the experience of practitioners and clients. It is beginning to provide the theoretical framework within which that experience makes complete sense. Faggin's work, the emerging consciousness research, and the biofield evidence together point toward the same conclusion: that the connection between a practitioner and a client across distance is not an approximation of what happens in the same room. It is the same thing — because at the level where healing operates, the room was never the relevant boundary.
+
+  
+
+  
+
+*Bonnie Collins is an EFT Master Practitioner and NLP Master Practitioner with over 20 years of practice. She works with clients globally via distance sessions, and has been practising remotely since long before it became the standard mode of therapeutic delivery.*
+
+  
+
+*→* [*Book a discovery conversation*](https://eftsolution.com)
+
+  
+
+  
+
+**Related Reading:**
+
+  
+
+  - The Cortisol Connection: How Energy Healing Resets Your Nervous System
+  - What Happens in a 90-Minute Energy Healing Session
+  - Beyond Talk Therapy: How Somatic Energy Work Releases Trauma the Mind Cannot Reach
+
+  
+
+  
+
+*Keywords: quantum entanglement healing, distance healing science, does distance healing work, energy healing peer-reviewed research, biofield science, remote EFT evidence, non-local healing research, Federico Faggin Irreducible consciousness, quantum consciousness healing, non-local consciousness healing, EFT distance sessions, energy healing proof*
+
+  
