@@ -1,0 +1,44 @@
+name: Daily rebuild
+
+# The journal is scheduled: build.py refuses to publish a post dated in the
+# future. A static site only notices that a date has passed when a build runs,
+# and Netlify only builds when something is pushed — so without this, a post
+# dated 7 September would sit invisible until the next unrelated commit.
+#
+# This asks Netlify to rebuild once a day. Nothing changes on days when no
+# post is due; the build is idempotent.
+#
+# Setup, once:
+#   1. Netlify -> the eftsolution project -> Project configuration ->
+#      Build & deploy -> Build hooks -> Add build hook. Name it "Daily
+#      rebuild", branch main. Copy the URL it gives you.
+#   2. GitHub -> bonnieann1/eftsolution-port -> Settings -> Secrets and
+#      variables -> Actions -> New repository secret.
+#      Name: NETLIFY_BUILD_HOOK    Value: that URL.
+#
+# The URL is a secret: anyone holding it can trigger a build of the site.
+
+on:
+  schedule:
+    # 06:10 UTC daily. Deliberately not on the hour — GitHub's scheduler is
+    # busiest then and delays cron runs. Early enough that a Monday post is
+    # live before anyone in Ireland or the US is reading.
+    - cron: "10 6 * * *"
+  workflow_dispatch:        # so it can also be run by hand from the Actions tab
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask Netlify to rebuild
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "NETLIFY_BUILD_HOOK is not set — see the setup notes at the"
+            echo "top of this file. Scheduled posts will NOT appear on time."
+            exit 1
+          fi
+          code=$(curl -sS -o /dev/null -w "%{http_code}" -X POST -d '{}' "$HOOK")
+          echo "Netlify build hook returned HTTP $code"
+          [ "$code" = "200" ] || [ "$code" = "201" ]

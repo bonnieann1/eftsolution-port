@@ -12,6 +12,59 @@ Status as of 31 August 2026, revised after verifying the GHL calendar directly. 
 
 ## Launch gates — do not go live with these open
 
+### S-28 · The journal — twelve scheduled posts. **Built 6 Sep 2026.**
+
+Twelve posts arrived as Google Docs. They are now the site's journal, on a weekly schedule.
+
+**Source of truth is markdown, not HTML.** `posts-src/*.md` holds each post exactly as written;
+`convert_posts.py` turns them into `pages/blog-<slug>.html`. Hand-writing thirteen fragments
+would have guaranteed they drifted apart — the same failure that gave the Manus build five
+different navs across seven pages.
+
+**Heading structure**, which is why the conversion is done in code:
+
+| markdown | becomes | rule |
+|---|---|---|
+| `#` | the page's single `<h1>` | one per page, in the header block |
+| `##` | `<h2>` | a section |
+| `###` | `<h3>` | a sub-section |
+
+Nothing is skipped and nothing is invented. All twelve posts use `#` and `##` only; none has an
+`h3`, so none was given one. A heading deeper than `###` prints a warning rather than passing
+silently. Typography lives in one `.post-body` CSS block appended to **both** `src.css` and
+`shared.css` — mirrored so a future `npx @tailwindcss/cli` recompile reproduces it.
+
+Also stripped, because they belong to the document rather than the page: the `*Published: …*`
+byline (the real date is in `SCHEDULE`) and the trailing `*Keywords: …*` line. Outbound links in
+the source all pointed at bare domains — including one to **bonnieann.com**, the wrong brand —
+and are rewritten to `/consultation/`.
+
+**The schedule.** `SCHEDULE` in `build.py` is the only place a publication date lives.
+Backfilled on Mondays 1, 8, 15, 22, 29 June and 6 July; then weekly from 7 September to
+12 October. Seven pieces are live now including the original post; six are pending.
+
+**The date gate.** A post dated in the future is not built at all — no page, no journal entry,
+no sitemap line. Verified by running the build against three fake dates: 7 visible today,
+8 tomorrow, 13 by 12 October. The sitemap needed the same gate and did not have it at first;
+`check_links.py` check 8 caught it before it shipped, which is the guards doing their job.
+
+**The journal index is generated.** It was a hand-written list containing one article. It now
+renders from whatever is actually published, newest first.
+
+**Slug corrected:** the Drive file `09-can-energy-healing-replace-medication.md` contains an
+article titled *Why EFT Results Vary So Dramatically*. The URL now matches the article.
+
+**Covers.** No artwork existed. `make_covers.py` derives one cover per post from photographs
+already in `assets/` — distinct crops with a light tonal wash so no two read the same. They are
+placeholders in the honest sense: drop a real image in at the same filename and nothing else
+changes. Adds ~2.4 MB to the site's image weight.
+
+**Requires the daily rebuild** — `.github/workflows/daily-build.yml`. A static site only notices
+a date has passed when a build runs, and Netlify only builds on a push. **Until the
+`NETLIFY_BUILD_HOOK` secret is set, scheduled posts will not appear on their day.** Setup notes
+are at the top of that file.
+
+
 ### S-27 · Every GoHighLevel embed was invisible ⛔ **FIXED 6 Sep 2026**
 
 **Found by Bonnie, 6 September 2026.** Both homepage lead magnets showed an empty box with

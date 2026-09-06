@@ -119,6 +119,49 @@ PAGES = {
 # pages/blog.html. Newest first, so this file reads in the same order as the index.
 #
 # path -> (source fragment, <title>, meta description, ISO date, (card png, card alt))
+# ---------------------------------------------------------------- the journal
+# One post a week. Anything dated in the future is not built at all — no page,
+# no entry in the journal index, no line in the sitemap — until a build runs
+# on or after its date. netlify.toml has a daily scheduled build so that
+# happens without anyone touching it. See SNAGS S-28.
+#
+# Backfilled June–July, then weekly from September. Change a date here and the
+# post moves; that is the only place a publication date lives.
+SCHEDULE = {
+    "01": "2026-06-01",
+    "02": "2026-06-08",
+    "03": "2026-06-15",
+    "04": "2026-06-22",
+    "05": "2026-06-29",
+    "06": "2026-07-06",
+    "07": "2026-09-07",
+    "08": "2026-09-14",
+    "09": "2026-09-21",
+    "10": "2026-09-28",
+    "11": "2026-10-05",
+    "12": "2026-10-12",
+}
+
+
+def load_generated_posts() -> dict:
+    """posts-src/_registry.txt, written by convert_posts.py."""
+    reg = ROOT / "posts-src" / "_registry.txt"
+    if not reg.exists():
+        return {}
+    out = {}
+    for line in reg.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        num, slug, title, desc, cover = line.split("|", 4)
+        if num not in SCHEDULE:
+            print(f"    WARNING: post {num} ({slug}) has no date in SCHEDULE — skipped")
+            continue
+        out[f"/blog/{slug}/"] = (
+            f"blog-{slug}.html", title, desc, SCHEDULE[num], (cover, title),
+        )
+    return out
+
+
 POSTS = {
     "/blog/why-smart-people-stay-stuck-even-when-they-know-what-to-do/": (
         "blog-why-smart-people-stay-stuck-even-when-they-know-what-to-do.html",
@@ -134,6 +177,8 @@ POSTS = {
 }
 
 # The site-wide card, used by every page that has no card of its own
+POSTS.update(load_generated_posts())
+
 DEFAULT_CARD = ("share-card.jpg", "EFT solution — release what’s holding you back.")
 
 # Pages built but deliberately kept out of sitemap.xml
@@ -249,6 +294,50 @@ def post_schema(path: str, headline: str, desc: str, published: str, card: str) 
     )
 
 
+def pretty_date(iso: str) -> str:
+    """2026-06-01 -> 1 June 2026."""
+    d = datetime.date.fromisoformat(iso)
+    return f"{d.day} {d.strftime('%B')} {d.year}"
+
+
+def read_minutes(src: str) -> int:
+    """Rough reading time from the built fragment, at 220 words a minute."""
+    frag = ROOT / "pages" / src
+    if not frag.exists():
+        return 0
+    words = len(re.sub(r"<[^>]+>", " ", frag.read_text(encoding="utf-8")).split())
+    return max(1, round(words / 220))
+
+
+def render_post_list(live: dict) -> str:
+    """The journal index, newest first, built from whatever is published."""
+    rows = sorted(live.items(), key=lambda kv: kv[1][3], reverse=True)
+    out = []
+    for path, (src, title, desc, pub, _card) in rows:
+        d = datetime.date.fromisoformat(pub)
+        when = f"{d.strftime('%B')} {d.year}"
+        out.append(
+            '        <article class="group grid gap-6 border-b border-ink/15 py-9 '
+            'lg:grid-cols-[0.28fr_1fr_0.8fr] lg:items-start">\n'
+            '          <div class="flex items-center gap-2 text-xs uppercase tracking-[0.13em] '
+            'text-sage"><svg class="i" width="14" height="14" aria-hidden="true">'
+            f'<use href="#i-calendar-days"/></svg>{esc(when)}</div>\n'
+            "          <div>\n"
+            '            <h3 class="font-display mt-3 max-w-2xl text-3xl leading-[0.95] text-ink '
+            'transition-colors group-hover:text-[#b3904c] sm:text-4xl">'
+            f'<a href="{path}">{esc(title)}</a></h3>\n'
+            "          </div>\n"
+            "          <div>\n"
+            f'            <p class="text-sm leading-7 text-ink/65">{esc(desc)}</p>\n'
+            f'            <a href="{path}" class="editorial-link mt-5 inline-flex items-center '
+            'gap-2 text-sm">Read the essay <svg class="i" width="15" height="15" '
+            'aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>\n'
+            "          </div>\n"
+            "        </article>"
+        )
+    return "\n".join(out)
+
+
 def build() -> int:
     template = (ROOT / "template.html").read_text(encoding="utf-8")
     css = (ROOT / "shared.css").read_text(encoding="utf-8")
@@ -268,7 +357,27 @@ def build() -> int:
     built, missing = [], []
 
     entries = [(p, s, t, d, nx, None, None) for p, (s, t, d, nx) in PAGES.items()]
-    entries += [(p, s, t, d, False, pub, card) for p, (s, t, d, pub, card) in POSTS.items()]
+
+    # Scheduled posts. A post dated in the future does not exist as far as the
+    # rest of the build is concerned — it is not written, not linked from the
+    # journal, and not in the sitemap. Google is told about it on the morning
+    # it appears and not a day sooner.
+    today = datetime.date.today().isoformat()
+    live_posts, pending = {}, []
+    for path, (src, title, desc, pub, card) in POSTS.items():
+        if pub > today:
+            pending.append((pub, title))
+        else:
+            live_posts[path] = (src, title, desc, pub, card)
+    entries += [(p, s, t, d, False, pub, card) for p, (s, t, d, pub, card) in live_posts.items()]
+
+    for pub, title in sorted(pending):
+        print(f"  pending  {pub}  {title[:64]}")
+    if pending:
+        print(f"  {len(pending)} post(s) scheduled but not yet published\n")
+
+    # The journal index lists exactly what was built, newest first.
+    postlist = render_post_list(live_posts)
 
     for path, src, title, desc, noindex, published, card in entries:
         card_img, card_alt = card or DEFAULT_CARD
@@ -289,6 +398,8 @@ def build() -> int:
             .replace("{{CONSENT}}", consent)
             .replace("{{GTM_ID}}", GTM_ID)
             .replace("{{CONTENT}}", frag.read_text(encoding="utf-8"))
+            .replace("{{POSTLIST}}", postlist)
+            .replace("{{POSTDATE}}", pretty_date(published) if published else "")
             .replace("{{TITLE}}", esc(title))
             .replace("{{DESC}}", esc(desc))
             .replace("{{PATH}}", path)
@@ -470,8 +581,11 @@ def write_sitemap() -> None:
             f"    <priority>{prio.get(p, '0.5' if legal else '0.8')}</priority>\n"
             "  </url>"
         )
+    # A scheduled post must not be announced to Google before it exists. The
+    # same gate as build(): dated in the future means absent from the sitemap.
+    today = datetime.date.today().isoformat()
     for p, meta in POSTS.items():
-        if not (ROOT / "pages" / meta[0]).exists():
+        if not (ROOT / "pages" / meta[0]).exists() or meta[3] > today:
             continue
         rows.append(
             "  <url>\n"

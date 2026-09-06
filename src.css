@@ -285,3 +285,42 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* --- article body typography (added by hand 6 Sep 2026, S-28) --------------
+   Mirrored verbatim at the end of src.css so `npx @tailwindcss/cli -i src.css
+   -o shared.css --minify` reproduces it. The journal posts are long-form
+   essays with real section headings, and utility classes on every element
+   made the fragments unreadable and easy to get inconsistent. One block of
+   plain CSS keeps every post identical and keeps the markup semantic:
+   h1 for the title, h2 for sections, h3 for sub-sections, nothing skipped. */
+.post-body h2 {
+  font-family: Cormorant Garamond, Georgia, serif;
+  font-size: 2rem;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #19304d;
+  margin: 3.25rem 0 1.25rem;
+}
+.post-body h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #19304d;
+  margin: 2.25rem 0 0.75rem;
+}
+.post-body h2 + h3 { margin-top: 1.5rem; }
+.post-body > :first-child { margin-top: 0; }
+.post-body p { margin: 0 0 1.55rem; }
+.post-body p:last-child { margin-bottom: 0; }
+.post-body strong { font-weight: 600; color: #19304d; }
+.post-body em { font-style: italic; }
+.post-body a {
+  color: #19304d;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(199, 169, 107, 0.85);
+}
+.post-body a:hover { color: #b3904c; }
+@media (min-width: 640px) {
+  .post-body h2 { font-size: 2.4rem; }
+}
