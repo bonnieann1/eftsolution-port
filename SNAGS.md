@@ -12,6 +12,21 @@ Status as of 31 August 2026, revised after verifying the GHL calendar directly. 
 
 ## Launch gates — do not go live with these open
 
+### S-29 · The packages page promised something that does not exist — **FIXED 6 Sep 2026**
+
+`/services/` listed **"Lifetime access to session recordings"** as an included benefit on all
+three packages — beside $1,795, $2,995 and $4,495. Bonnie's own punch list records it as
+confirmed: those recordings do not exist. The line was live from launch on 1 September.
+
+A benefit listed next to a price is what a paying client can reasonably expect to receive, so
+this is not a copy tidy-up. Removed from all three. Nothing else on the page changed; each
+package still lists its sessions, its support cadence and its own distinguishing inclusions.
+
+**The wider point:** every remaining bullet on that page should be checked the same way. This one
+was caught because someone wrote it down, not because the site could tell. Nothing in the build
+can verify that a promise is true — only Bonnie can.
+
+
 ### S-28 · The journal — twelve scheduled posts. **Built 6 Sep 2026.**
 
 Twelve posts arrived as Google Docs. They are now the site's journal, on a weekly schedule.
