@@ -41,6 +41,7 @@ CATEGORIES = {
     "10": "Energy & evidence",
     "11": "Relationships",
     "12": "Working together",
+    "13": "Body & symptoms",
 }
 
 # Every outbound link in the source points at a bare domain. On the site they
